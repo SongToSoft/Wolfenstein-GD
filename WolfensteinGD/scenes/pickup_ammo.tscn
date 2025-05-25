@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwgueo8c5tcfk"]
+
+[ext_resource type="Script" path="res://scripts/pickup_ammo.gd" id="1_tkxfa"]
+[ext_resource type="Texture2D" uid="uid://rglc1pg0h1g3" path="res://sprites/wolf-items.png" id="1_ybtsj"]
+[ext_resource type="AudioStream" uid="uid://2ilijkrwhnum" path="res://sounds/Pickup.wav" id="3_soepn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l627w"]
+radius = 0.292134
+height = 0.858642
+
+[node name="pickup_ammo" type="Area3D"]
+script = ExtResource("1_tkxfa")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.9, 0)
+billboard = 2
+texture = ExtResource("1_ybtsj")
+hframes = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.220073, 0)
+shape = SubResource("CapsuleShape3D_l627w")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_soepn")
+volume_db = -15.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

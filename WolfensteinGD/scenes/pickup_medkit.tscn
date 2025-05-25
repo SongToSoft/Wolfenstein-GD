@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpl7mj6qyqd44"]
+
+[ext_resource type="Script" path="res://scripts/pickup_medkit.gd" id="1_7ekky"]
+[ext_resource type="Texture2D" uid="uid://rglc1pg0h1g3" path="res://sprites/wolf-items.png" id="2_ny2e5"]
+[ext_resource type="AudioStream" uid="uid://4fyg0q37n72o" path="res://sounds/Health.wav" id="3_t7y0s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l627w"]
+radius = 0.292134
+height = 0.858642
+
+[node name="pickup_medkit" type="Area3D"]
+script = ExtResource("1_7ekky")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.9, 0)
+billboard = 2
+texture = ExtResource("2_ny2e5")
+hframes = 4
+frame = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.220073, 0)
+shape = SubResource("CapsuleShape3D_l627w")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_t7y0s")
+volume_db = -15.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]

@@ -1,0 +1,185 @@
+[gd_scene load_steps=21 format=3 uid="uid://pf5irvdgux7j"]
+
+[ext_resource type="Script" path="res://scripts/level1.gd" id="1_n52hp"]
+[ext_resource type="Texture2D" uid="uid://ct467h8l202rq" path="res://sprites/blue-wall.png" id="2_hivst"]
+[ext_resource type="PackedScene" uid="uid://bhaoce2m1pqsu" path="res://scenes/player.tscn" id="3_1yab3"]
+[ext_resource type="PackedScene" uid="uid://ddwkj623b15q3" path="res://scenes/guard.tscn" id="4_75mdk"]
+[ext_resource type="PackedScene" uid="uid://cwgueo8c5tcfk" path="res://scenes/pickup_ammo.tscn" id="5_dekxn"]
+[ext_resource type="PackedScene" uid="uid://yypiewswddo3" path="res://scenes/pickup_machinegun.tscn" id="7_8fgrq"]
+[ext_resource type="PackedScene" uid="uid://bwhpgqs10f7t2" path="res://scenes/pickup_mini.tscn" id="8_3xcls"]
+[ext_resource type="PackedScene" uid="uid://cfs6km4m4h2jr" path="res://scenes/door.tscn" id="8_jwcup"]
+[ext_resource type="PackedScene" uid="uid://bpl7mj6qyqd44" path="res://scenes/pickup_medkit.tscn" id="9_l7qnv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1g3r2"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_energy_multiplier = 0.7
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ukq1g"]
+sky_material = SubResource("ProceduralSkyMaterial_1g3r2")
+
+[sub_resource type="Environment" id="Environment_5vm3v"]
+background_mode = 2
+sky = SubResource("Sky_ukq1g")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j7lie"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1onsd"]
+albedo_color = Color(0.27451, 0.27451, 0.27451, 1)
+uv1_scale = Vector3(10, 10, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5xkth"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3b0oh"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vhbee"]
+albedo_color = Color(0.627451, 0.627451, 0.627451, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wkbkd"]
+albedo_texture = ExtResource("2_hivst")
+uv1_scale = Vector3(15, 3, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t1e4c"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_c83va"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="level1" type="Node3D"]
+script = ExtResource("1_n52hp")
+
+[node name="worldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5vm3v")
+
+[node name="directionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.5, -2.18557e-08, 0, -4.37114e-08, 1, -0.5, 0.866025, 3.78552e-08, 0, 8, 0)
+shadow_enabled = true
+
+[node name="player" parent="." instance=ExtResource("3_1yab3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.950631, 0, 2.98793)
+
+[node name="area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.3824, 2.11363, -16.461)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="area3D"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("BoxShape3D_j7lie")
+
+[node name="guards" type="Node" parent="."]
+
+[node name="guard" parent="guards" instance=ExtResource("4_75mdk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0.3, -0.2)
+
+[node name="location" type="Node" parent="."]
+
+[node name="door" parent="location" instance=ExtResource("8_jwcup")]
+transform = Transform3D(6.2, 0, 0, 0, 6.2, 0, 0, 0, 6.2, -0.68626, 0, -35)
+visible = false
+
+[node name="floor" type="MeshInstance3D" parent="location"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_1onsd")
+mesh = SubResource("PlaneMesh_5xkth")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="location/floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="location/floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_3b0oh")
+
+[node name="roof" type="MeshInstance3D" parent="location"]
+transform = Transform3D(20, 0, -1.74846e-06, 0, -20, 0, 1.74846e-06, 0, 20, 0, 4, 0)
+material_override = SubResource("StandardMaterial3D_vhbee")
+mesh = SubResource("PlaneMesh_5xkth")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="location/roof"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="location/roof/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_3b0oh")
+
+[node name="wall" type="MeshInstance3D" parent="location"]
+transform = Transform3D(40, 0, 0, 0, 4, 0, 0, 0, 0.4, 0, 2, 20)
+material_override = SubResource("StandardMaterial3D_wkbkd")
+mesh = SubResource("BoxMesh_t1e4c")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="location/wall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="location/wall/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_c83va")
+
+[node name="wall2" type="MeshInstance3D" parent="location"]
+transform = Transform3D(-1.74846e-06, 0, 0.4, 0, 4, 0, -40, 0, -1.74846e-08, -20, 2, 0)
+material_override = SubResource("StandardMaterial3D_wkbkd")
+mesh = SubResource("BoxMesh_t1e4c")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="location/wall2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="location/wall2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_c83va")
+
+[node name="wall3" type="MeshInstance3D" parent="location"]
+transform = Transform3D(-1.74846e-06, 0, 0.4, 0, 4, 0, -40, 0, -1.74846e-08, 20, 2, 0)
+material_override = SubResource("StandardMaterial3D_wkbkd")
+mesh = SubResource("BoxMesh_t1e4c")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="location/wall3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="location/wall3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_c83va")
+
+[node name="wall4" type="MeshInstance3D" parent="location"]
+transform = Transform3D(40, 0, 0, 0, 4, 0, 0, 0, 0.4, 0, 2, -20)
+material_override = SubResource("StandardMaterial3D_wkbkd")
+mesh = SubResource("BoxMesh_t1e4c")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="location/wall4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="location/wall4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_c83va")
+
+[node name="picup_items" type="Node" parent="."]
+
+[node name="pickup_medkit" parent="picup_items" instance=ExtResource("9_l7qnv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -8)
+
+[node name="pickup_medkit2" parent="picup_items" instance=ExtResource("9_l7qnv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -10)
+
+[node name="pickup_medkit3" parent="picup_items" instance=ExtResource("9_l7qnv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, -12)
+
+[node name="pickup_ammo" parent="picup_items" instance=ExtResource("5_dekxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 15)
+
+[node name="pickup_ammo2" parent="picup_items" instance=ExtResource("5_dekxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 13)
+
+[node name="pickup_ammo3" parent="picup_items" instance=ExtResource("5_dekxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 0, 11)
+
+[node name="pickup_machinegun" parent="picup_items" instance=ExtResource("7_8fgrq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 15)
+
+[node name="pickup_machinegun2" parent="picup_items" instance=ExtResource("7_8fgrq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 13)
+
+[node name="pickup_machinegun3" parent="picup_items" instance=ExtResource("7_8fgrq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 11)
+
+[node name="pickup_machinegun4" parent="picup_items" instance=ExtResource("8_3xcls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -8)
+
+[node name="pickup_machinegun5" parent="picup_items" instance=ExtResource("8_3xcls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -10)
+
+[node name="pickup_machinegun6" parent="picup_items" instance=ExtResource("8_3xcls")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -12)
+
+[connection signal="body_entered" from="area3D" to="." method="_on_area_3d_body_entered"]
